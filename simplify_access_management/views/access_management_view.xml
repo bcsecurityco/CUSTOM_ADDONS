@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="access_management_form_view_ah" model="ir.ui.view">
+            <field name="name">access_management_form_view_ah</field>
+            <field name="groups_id" eval="[(4, ref('group_access_management_spt'))]"/>
+            <field name="model">access.management</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" default_focus="1" required='1'/>
+                                <field name="readonly" />
+                            </group>
+                            <group>
+                                <field name="user_ids" widget='many2many_tags' options="{'no_create': True}" domain="[('share','=',False)]"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string='Menu Access'>
+                                <field name='hide_menu_ids' />
+                            </page>
+                            <page string='Model Access'>
+                                <field name='remove_action_ids'>
+                                    <tree editable='bottom' >
+                                        <field name="model_id" width='13' required='1'/>
+                                        <field name="report_action_ids" width='13' widget="many2many_tags" options="{'no_create': True}"/>
+                                        <field name="server_action_ids" width='13' widget="many2many_tags" options="{'no_create': True}"/>
+                                        <field name="view_data_ids" width='8' widget="many2many_tags" options="{'no_create': True}"/>
+                                        
+                                        <field name="readonly" width='7' attrs="{'column_invisible' : [('parent.readonly','=',True)]}"/>
+                                        <field name="restrict_create" width='10' attrs="{'column_invisible' : [('parent.readonly','=',True)]}"/>
+                                        <field name="restrict_edit" width='10' attrs="{'column_invisible' : [('parent.readonly','=',True)]}"/>
+                                        <field name="restrict_delete" width='10' attrs="{'column_invisible' : [('parent.readonly','=',True)]}"/>
+                                        <field name="restrict_export" width='10' />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='Field Access'>
+                                <field name='hide_field_ids'>
+                                    <tree editable='bottom'>
+                                        <field name="model_id" required='1'/>
+                                        <field name="field_id" widget='many2many_tags' domain="[('model_id','=',model_id)]"/>
+                                        <field name="invisible" width='1'/>
+                                        <field name="readonly" width='1' attrs="{'column_invisible' : [('parent.readonly','=',True)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <!-- <page string='Restrict Create/Edit'>
+                                <field name='restrict_create_edit_ids'>
+                                    <tree editable='bottom'>
+                                        <field name="model_id" required='1'/>
+                                        <field name="restrict_create" />
+                                        <field name="restrict_edit" />
+                                    </tree>
+                                </field>
+                            </page> -->
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="access_management_tree_view_ah" model="ir.ui.view">
+            <field name="name">access_management_tree_view_ah</field>
+            <field name="groups_id" eval="[(4, ref('group_access_management_spt'))]"/>
+            <field name="model">access.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>                    
+                </tree>
+            </field>
+        </record>
+        
+        <!-- <record id="view_users_search" model="ir.ui.view">
+            <field name="name">company.branch.spt.search</field>
+            <field name="model">company.branch.spt</field>
+            <field name="groups_id" eval="[(4, ref('company_multi_branch_spt.group_company_branch_spt'))]"/>
+
+            <field name="arch" type="xml">
+                <search string="Branches">
+                    <field name="name" string="Branch"/>
+                    <field name="state_id" string="State"/>
+                    <field name="country_id" string="Country"/>
+                    <field name="city" string="City"/>
+                    <field name="company_id" string="Company"/>
+                    <field name="email" string="Email"/>
+                </search>
+            </field>
+        </record> -->
+
+        <record id="action_access_management_ah" model="ir.actions.act_window">
+            <field name="name">Access Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">access.management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- <menuitem id="menu_main_access_management_ah" name="Access Management" action="action_access_management_ah" groups="group_access_management_spt"/> -->
+        <menuitem id="menu_access_management_ah" name="Access Management Studio" parent="base.menu_users" action="action_access_management_ah" groups="group_access_management_spt" sequence='1'/>
+
+    </data>
+</odoo>

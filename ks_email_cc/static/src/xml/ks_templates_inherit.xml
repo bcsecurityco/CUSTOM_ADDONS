@@ -1,0 +1,30 @@
+<templates>
+    <t t-name="KsMailComposerInherit" t-inherit="mail.Composer" t-inherit-mode="extension" owl="1">
+        <xpath expr="//small[hasclass('o_Composer_followers')]" position="replace">
+            <b class="text-muted">To:</b>
+        </xpath>
+    </t>
+
+    <t t-name="KsMailMessageInherit" t-inherit="mail.Message" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_Message_content')]" position="before">
+            <small>
+                <p t-if="message.ks_cc_partners">
+                    <b>CC :</b>
+                    <t t-esc="message.ks_cc_partners"/>
+                </p>
+                <p t-if="message.ks_email_cc_string">
+                    <b>CC Emails:</b>
+                    <t t-esc="message.ks_email_cc_string"/>
+                </p>
+                <p t-if="message.ks_bcc_partners">
+                    <b>Bcc :</b>
+                    <t t-esc="message.ks_bcc_partners"/>
+                </p>
+                <p t-if="message.ks_email_bcc_string">
+                    <b>Bcc Emails:</b>
+                    <t t-esc="message.ks_email_bcc_string"/>
+                </p>
+            </small>
+        </xpath>
+    </t>
+</templates>

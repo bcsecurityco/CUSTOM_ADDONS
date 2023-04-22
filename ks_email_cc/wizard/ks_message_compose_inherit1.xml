@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="compose_message_inherit">
+        <field name="name">mail.compose.message.form.inherit</field>
+        <field name="model">account.invoice.send</field>
+        <field name="inherit_id" ref="account.account_invoice_send_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='subject']" position="before">
+                <field name="ks_cc_partner_ids" widget="many2many_tags_email"
+                       string="Cc (Partners)"
+                       attrs="{'invisible': ['|', ('is_log','=', True),('ks_cc_partner_visibility','=', False)]}"/>
+                <field name="ks_bcc_partner_ids" widget="many2many_tags_email"
+                       string="Bcc (Partners)"
+                       attrs="{'invisible': ['|', ('ks_bcc_partner_visibility','=', False), ('is_log','=', True)]}"/>
+                <field name="email_to" colspan="2"
+                       attrs="{'invisible': ['|', ('is_log','=', True),('ks_email_to_visibility','=', False)]}"/>
+                <field name="ks_email_char_cc"
+                       attrs="{'invisible': ['|', ('is_log','=', True),('ks_email_char_cc_visibility','=', False)]}"/>
+                <field name="ks_email_char_bcc"
+                       attrs="{'invisible': ['|', ('is_log','=', True),('ks_email_char_bcc_visibility','=', False)]}"/>
+                <field name="ks_email_char_cc_visibility" invisible="1"/>
+                <field name="ks_email_char_bcc_visibility" invisible="1"/>
+                <field name="ks_reply_to_bcc_visibility" invisible="1"/>
+                <field name="ks_cc_partner_visibility" invisible="1"/>
+                <field name="ks_bcc_partner_visibility" invisible="1"/>
+                <field name="ks_email_to_visibility" invisible="1"/>
+                <field name="is_log" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
